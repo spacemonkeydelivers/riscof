@@ -15,8 +15,8 @@ from riscof.pluginTemplate import pluginTemplate
 
 logger = logging.getLogger()
 
-class dutname(pluginTemplate):
-    __model__ = "dutname"
+class xrv1(pluginTemplate):
+    __model__ = "xrv1"
 
     #TODO: please update the below to indicate family, version, etc of your DUT.
     __version__ = "XXX"
@@ -36,7 +36,7 @@ class dutname(pluginTemplate):
         # test-bench produced by a simulator (like verilator, vcs, incisive, etc). In case of an iss or
         # emulator, this variable could point to where the iss binary is located. If 'PATH variable
         # is missing in the config.ini we can hardcode the alternate here.
-        self.dut_exe = os.path.join(config['PATH'] if 'PATH' in config else "","dutname")
+        self.dut_exe = os.path.join(config['PATH'] if 'PATH' in config else "","xrv1")
 
         # Number of parallel jobs that can be spawned off by RISCOF
         # for various actions performed in later functions, specifically to run the tests in
@@ -89,7 +89,7 @@ class dutname(pluginTemplate):
       # will be useful in setting integer value in the compiler string (if not already hardcoded);
       self.xlen = ('64' if 64 in ispec['supported_xlen'] else '32')
 
-      # for dutname start building the '--isa' argument. the self.isa is dutnmae specific and may not be
+      # for xrv1 start building the '--isa' argument. the self.isa is dutnmae specific and may not be
       # useful for all DUTs
       self.isa = 'rv' + self.xlen
       if "I" in ispec["ISA"]:
@@ -155,7 +155,7 @@ class dutname(pluginTemplate):
 	  # echo statement.
           if self.target_run:
             # set up the simulation command. Template is for spike. Please change.
-            simcmd = self.dut_exe + ' --isa={0} +signature={1} +signature-granularity=4 {2}'.format(self.isa, sig_file, elf)
+            simcmd = self.dut_exe + ' --signature {0} --elf {1} --verbose {2}'.format(sig_file, elf, 0)
           else:
             simcmd = 'echo "NO RUN"'
 
